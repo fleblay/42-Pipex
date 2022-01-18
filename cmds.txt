@@ -1,0 +1,2 @@
+./a.out "/usr/bin/grep premier" "/usr/bin/wc"
+gcc -Wall -Wextra -Werror start.c libft/libft.a -I libft
