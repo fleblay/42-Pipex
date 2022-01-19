@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 11:20:53 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/01/18 18:14:41 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/01/19 09:29:51 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ int main(int ac, char *av[], char *envp[])
 	pid_t	pid;
 	int		pipefd[2];	
 
-	(void)pid;
 	(void)ac;
 	(void)envp;
-
 	/*
 	int i;
 	i = 0;
@@ -47,6 +45,7 @@ int main(int ac, char *av[], char *envp[])
 		perror("Erreur");
 	*/
 
+	(void)pid;
 	if (pipe(pipefd) == -1)
 		perror("Pipe");
 
@@ -56,10 +55,8 @@ int main(int ac, char *av[], char *envp[])
 	if (pid == 0)
 	{
 		printf("enfant\n");
-		/*
 		if (close(pipefd[0]) == -1)
 			perror("Erreur close");
-		*/
 		dup2(open("test.txt", O_RDONLY), 0);
 		if (dup2(pipefd[1], 1) == -1)
 			perror("Erreur dup2");
@@ -69,19 +66,9 @@ int main(int ac, char *av[], char *envp[])
 	}
 	else
 	{
+		printf("parent\n");
 		if (close(pipefd[1]) == -1)
 			perror("Erreur close");
-		/*
-		char	buf[BUFFER_SIZE + 1];
-		int		ret_read;
-		ret_read = 1;
-		while (ret_read)
-		{
-			ret_read = read(pipefd[0], buf, BUFFER_SIZE);
-			buf[ret_read] = '\0';
-			printf("buf : >%s<\n", buf);
-		}
-		*/
 		wait(NULL);
 		dup2(pipefd[0], 0);
 		if (execve(ft_split(av[2], ' ')[0], ft_split(av[2], ' '), NULL))
