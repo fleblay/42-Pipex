@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 10:11:21 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/01/26 15:12:35 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/01/26 16:39:10 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,26 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void	get_cmds(t_data *data, int ac, char *av[])
+void	get_cmds(t_data *data)
 {
 	int	i;
 
-	data->cmds = (char ***)malloc((ac) * sizeof(char **));
+	data->cmds = (char ***)malloc((data->ac) * sizeof(char **));
 	if (!data->cmds)
 	{
 		data->error = 1;
 		return ;
 	}
 	i = 0;
-	while (i < ac - 1)
+	while (i < data->ac - 1)
 	{
-		data->cmds[i] = ft_split(av[i + 1], ' ');
+		data->cmds[i] = ft_split(data->av[i + 1], ' ');
 		if (!data->cmds[i])
 		{
 			data->error = 1;
 			free_partial_tab(data, i);
 			return ;
 		}
-
 		i++;
 	}
 	data->cmds[i] = NULL;
@@ -46,7 +45,7 @@ void	print_cmds(t_data *data)
 	int	i;
 	int	j;
 
-	if (data->error)
+	if (!data->cmds)
 		return ;
 	i = 0;
 	while (data->cmds[i])
@@ -67,7 +66,7 @@ void	free_cmds(t_data *data)
 	int	j;
 
 	i = 0;
-	if (data->error)
+	if (!data->cmds)
 		return ;
 	while (data->cmds[i])
 	{
@@ -83,11 +82,11 @@ void	free_cmds(t_data *data)
 	free(data->cmds);
 }
 
-void	free_partial_tab(t_data *data,  int i)
+void	free_partial_tab(t_data *data, int i)
 {
 	int	index;
-	int index2;
-	
+	int	index2;
+
 	index = 0;
 	while (index < i)
 	{
@@ -101,5 +100,5 @@ void	free_partial_tab(t_data *data,  int i)
 		index++;
 	}
 	free(data->cmds);
+	data->cmds = NULL;
 }
-
