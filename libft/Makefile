@@ -49,7 +49,8 @@ BONUS_OBJS = ${BONUS_SRCS:.c=.o}
 NAME = libft.a
 
 CC = gcc
-CFLAGS=-Wall -Wextra -Werror
+CFLAGS= -Wall -Wextra -Werror -fsanitize=address
+#CFLAGS= -Wall -Wextra -Werror
 
 all : ${NAME}
 

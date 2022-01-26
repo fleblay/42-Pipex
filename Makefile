@@ -12,12 +12,13 @@ NAME = pipex
 
 CC = cc 
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
+#CFLAGS = -Wall -Wextra -Werror
 
 all : $(NAME)
 
 $(NAME) : $(OBJS) $(HEADER)
 	make -C libft
-	$(CC) $(CFLAGS) -o $(NAME) -L libft -lft $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L libft -lft 
 
 %.o : %.c
 	$(CC) $(CFLAGS)	-o $@ -c $< -I $(HDR_DIR)
