@@ -6,14 +6,19 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 12:43:11 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/01/19 12:47:45 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/01/26 10:12:10 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "pipex.h"
 
-int main(int ac, char *av[], char *env[])
+int	main(int ac, char *av[], char *env[])
 {
+	t_data	data;
+
+	(void)ac;
+	(void)av;
+	(void)env;
+	data = (t_data){0};
 	return (0);
 }
