@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 10:11:21 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/01/27 11:15:54 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/01/27 14:59:57 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,27 @@
 #include "libft.h"
 #include <stdlib.h>
 #include <stdio.h>
+
+static void	free_partial_tab_cmds(t_data *data, int i)
+{
+	int	index;
+	int	index2;
+
+	index = 0;
+	while (index < i)
+	{
+		index2 = 0;
+		while (data->cmds[index][index2])
+		{
+			free(data->cmds[index][index2]);
+			index2++;
+		}
+		free(data->cmds[index]);
+		index++;
+	}
+	free(data->cmds);
+	data->cmds = NULL;
+}
 
 void	get_cmds(t_data *data)
 {
@@ -32,7 +53,7 @@ void	get_cmds(t_data *data)
 		if (!data->cmds[i])
 		{
 			data->error = 1;
-			free_partial_tab(data, i);
+			free_partial_tab_cmds(data, i);
 			return ;
 		}
 		i++;
@@ -80,25 +101,4 @@ void	free_cmds(t_data *data)
 		i++;
 	}
 	free(data->cmds);
-}
-
-void	free_partial_tab(t_data *data, int i)
-{
-	int	index;
-	int	index2;
-
-	index = 0;
-	while (index < i)
-	{
-		index2 = 0;
-		while (data->cmds[index][index2])
-		{
-			free(data->cmds[index][index2]);
-			index2++;
-		}
-		free(data->cmds[index]);
-		index++;
-	}
-	free(data->cmds);
-	data->cmds = NULL;
 }
