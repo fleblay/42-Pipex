@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 10:11:21 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/01/26 16:39:10 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/01/27 11:15:54 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ void	get_cmds(t_data *data)
 {
 	int	i;
 
-	data->cmds = (char ***)malloc((data->ac) * sizeof(char **));
+	data->cmds = (char ***)malloc((data->ac + 1) * sizeof(char **));
 	if (!data->cmds)
 	{
 		data->error = 1;
 		return ;
 	}
 	i = 0;
-	while (i < data->ac - 1)
+	while (i < data->ac)
 	{
-		data->cmds[i] = ft_split(data->av[i + 1], ' ');
+		data->cmds[i] = ft_split(data->av[i], ' ');
 		if (!data->cmds[i])
 		{
 			data->error = 1;
