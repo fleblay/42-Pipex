@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 14:27:28 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/01/27 15:48:57 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/01/27 17:12:55 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	init_data(t_data *data)
 	data->child = (pid_t *)malloc((data->ac - 4) * sizeof(pid_t));
 	if (!data->child)
 		custom_exit(data, 1);
-	print_cmds(data);
-	print_types(data);
+//	print_cmds(data);
+//	print_types(data);
 }
 
 void	custom_exit(t_data *data, int error)

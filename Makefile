@@ -1,5 +1,5 @@
 SRC_DIR = srcs/
-SRC_LST = pipex.c parsing.c path.c types.c data_utils.c pipe.c
+SRC_LST = pipex.c parsing.c path.c types.c data_utils.c pipe.c fork.c
 SRCS = $(addprefix $(SRC_DIR), $(SRC_LST))
 
 HDR_DIR = includes/
