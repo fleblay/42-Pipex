@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 10:48:28 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/01/27 14:26:37 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/01/28 12:25:16 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,11 @@ void	get_status(t_data *data)
 		if (get_file_status(data->cmds[i][0], data, i, 0) >= 0)
 			continue ;
 		j = -1;
-		while (data->path[++j])
+		while (data->path && data->path[++j])
 		{
 			try = ft_strjoin2(data->path[j], "/", data->cmds[i][0]);
 			if (!try)
-			{
-				data->error = 1;
-				return ;
-			}
+				custom_exit(data, 1, "malloc fail");
 			if (get_file_status(try, data, i, 1) >= 0)
 				break ;
 			else

@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 14:45:27 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/01/27 15:45:32 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/01/28 12:24:21 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,15 @@ void	create_pipes(t_data *data)
 	while (i < data->ac - 4)
 	{
 		data->pipefd[i] = (int *)malloc(2 * sizeof(int));
-		if (!data->pipefd[i] || pipe(data->pipefd[i]))
+		if (!data->pipefd[i])
 		{
-			data->error = 1;
 			free_partial_tab_pipes(data, i);
-			return ;
+			custom_exit(data, 1, "malloc fail");
+		}
+		if (pipe(data->pipefd[i]))
+		{
+			free_partial_tab_pipes(data, i);
+			custom_exit(data, 1, "pipe fail");
 		}
 		i++;
 	}

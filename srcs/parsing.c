@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 10:11:21 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/01/27 14:59:57 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/01/28 12:22:21 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,15 @@ void	get_cmds(t_data *data)
 
 	data->cmds = (char ***)malloc((data->ac + 1) * sizeof(char **));
 	if (!data->cmds)
-	{
-		data->error = 1;
-		return ;
-	}
+		custom_exit(data, 1, "malloc fail");
 	i = 0;
 	while (i < data->ac)
 	{
 		data->cmds[i] = ft_split(data->av[i], ' ');
 		if (!data->cmds[i])
 		{
-			data->error = 1;
 			free_partial_tab_cmds(data, i);
-			return ;
+			custom_exit(data, 1, "malloc fail");	
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 12:43:11 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/01/28 11:17:02 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/01/28 12:29:08 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	make_fork(t_data *data)
 	{
 		data->child[i] = fork();
 		if (data->child[i] == -1)
-			custom_exit(data, 1);
+			custom_exit(data, 1, "fork fail");
 		if (data->child[i] == 0)
 		{
 			if (i == 0)
@@ -52,7 +52,7 @@ void	make_fork(t_data *data)
 			i++;
 		}
 	}
-	fd2 = open(data->cmds[i + 3][0], O_CREAT | O_RDWR);
+	fd2 = open(data->cmds[i + 3][0], O_CREAT | O_RDWR, S_IRWXU);
 	dup2(fd2, 1);
 	close(fd2);
 	exit(execve(data->cmds[i + 2][0], data->cmds[i + 2], NULL));
@@ -69,6 +69,6 @@ int	main(int ac, char *av[], char *env[])
 
 	make_fork(&data);
 
-	custom_exit(&data, 0);
+	custom_exit(&data, 0, NULL);
 	return (0);
 }
