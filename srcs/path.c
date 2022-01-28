@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 16:41:07 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/01/27 11:40:03 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/01/28 10:09:52 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,13 @@ void	get_path(t_data *data)
 	i = 0;
 	if (!data)
 		return ;
-	while (ft_strncmp(data->env[i], "PATH=", 5))
+	while (data->env[i] && ft_strncmp(data->env[i], "PATH=", 5))
 		i++;
+	if (!data->env[i])
+	{
+		data->error = 1;
+		return ;
+	}
 	data->path = ft_split(data->env[i] + 5, ':');
 	if (!data->path)
 	{
