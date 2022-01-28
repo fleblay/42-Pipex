@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/27 14:27:28 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/01/28 12:25:49 by fle-blay         ###   ########.fr       */
+/*   Created: 2022/01/28 15:31:10 by fle-blay          #+#    #+#             */
+/*   Updated: 2022/01/28 17:00:42 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include "libft.h"
 #include <unistd.h>
+#include <stdio.h>
 
 void	init_data(t_data *data)
 {
@@ -37,12 +38,14 @@ void	init_data(t_data *data)
 
 void	custom_exit(t_data *data, int error, char *error_type)
 {
-	if (data->error || error)
-		{
-			ft_putstr_fd("Error : ", 2);
-			ft_putstr_fd(error_type, 2);
-			ft_putstr_fd("\n", 2);
-		}
+	if (error)
+	{
+		ft_putstr_fd("Error : ", 2);
+		ft_putstr_fd(error_type, 2);
+		ft_putstr_fd("\n", 2);
+	}
+	if (error == 2)
+		perror("Perror info");
 	free(data->cmds_type);
 	free_cmds(data);
 	free_path(data);
