@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 16:09:57 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/01/28 17:02:45 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/01/31 10:59:03 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <fcntl.h>
+#include <unistd.h>
 
 void	make_fork(t_data *data)
 {
@@ -23,43 +24,35 @@ void	make_fork(t_data *data)
 	i = 0;
 	while (i < data->ac - 4)
 	{
-		data->child[i] = fork();
-		if (data->child[i] == -1)
-			custom_exit(data, 2, "fork fail");
+		data->child[i] = s_fork(data);
 		if (data->child[i] == 0)
 		{
 			if (i == 0)
 			{
-				data->fd1 = open(data->cmds[1][0], O_RDONLY);
-				if (data->fd1 == -1)
-					custom_exit(data, 2, "open fail");
-				if (dup2(data->fd1, 0)== -1)
-					custom_exit(data, 2, "dup2 fail");
-				if (close(data->fd1) == -1)
-					custom_exit(data, 2, "close fail");
+				data->fd1 = s_open(data->cmds[1][0], O_RDONLY, 0, data);
+				s_dup2(data->fd1, 0, data);
+				s_close(data->fd1, data);
 			}
-			close(data->pipefd[i][0]);
-			dup2(data->pipefd[i][1], 1);
-			close(data->pipefd[i][1]);
-			if (execve(data->cmds[i + 2][0], data->cmds[i + 2], NULL) == -1)
-				custom_exit(data, 2, "execve fail");
+			s_close(data->pipefd[i][0], data);
+			s_dup2(data->pipefd[i][1], 1, data);
+			s_close(data->pipefd[i][1], data);
+			s_execve(data->cmds[i + 2][0], data->cmds[i + 2], data->env, data);
 		}
 		else
 		{
-			close(data->pipefd[i][1]);
-			dup2(data->pipefd[i][0], 0);
-			close(data->pipefd[i][0]);
+			s_close(data->pipefd[i][1], data);
+			s_dup2(data->pipefd[i][0], 0, data);
+			s_close(data->pipefd[i][0], data);
 			// verif le retour du child via le wait pour verif val
 			// et print l'erreur eventuelle
-			if (wait(&return_value) == -1)
-				custom_exit(data, 2, "wait fail");
+			s_wait(&return_value, data);
 			// check val de return_value et sortir en consequence ?
 			i++;
 		}
 	}
 	// ajouter check erreur comme au dessus
-	data->fd2 = open(data->cmds[i + 3][0], O_CREAT | O_RDWR, S_IRWXU);
-	dup2(data->fd2, 1);
-	close(data->fd2);
+	data->fd2 = s_open(data->cmds[i + 3][0], O_CREAT | O_RDWR, S_IRWXU, data);
+	s_dup2(data->fd2, 1, data);
+	s_close(data->fd2, data);
 	exit(execve(data->cmds[i + 2][0], data->cmds[i + 2], NULL));
 }
