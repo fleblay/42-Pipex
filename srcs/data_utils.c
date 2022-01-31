@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 15:31:10 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/01/31 11:02:37 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/01/31 19:03:06 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 #include <unistd.h>
 #include <stdio.h>
 
+//	print_cmds(data);
+//	print_types(data);
+
 void	init_data(t_data *data)
 {
 	data->cmds_type = (int *)malloc((data->ac) * sizeof(int));
@@ -23,6 +26,8 @@ void	init_data(t_data *data)
 		custom_exit(data, 1, "malloc fail");
 	set_types(data);
 	get_cmds(data);
+	if (data->av[1])
+		data->hd = !ft_strcmp(data->av[1], "here_doc");
 	get_path(data);
 	get_status(data);
 	data->pipefd = (int **)malloc((data->ac - 4) * sizeof(int *));

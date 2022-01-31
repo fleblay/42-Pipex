@@ -21,7 +21,7 @@ $(NAME) : $(OBJS) $(HEADER)
 	make bonus -C libft
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L libft -lft 
 
-%.o : %.c
+%.o : %.c $(HEADER)
 	$(CC) $(CFLAGS)	-o $@ -c $< -I $(HDR_DIR)
 
 clean :

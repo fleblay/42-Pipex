@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 16:41:07 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/01/28 12:22:59 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/01/31 17:06:13 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	get_path(t_data *data)
 	}
 	data->path = ft_split(data->env[i] + 5, ':');
 	if (!data->path)
-		custom_exit(data, 1, "malloc fail");
+		custom_exit(data, 1, "split fail");
 }
 
 void	print_path(t_data *data)
