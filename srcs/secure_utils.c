@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 10:14:19 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/01/31 10:51:23 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/01/31 11:25:12 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	s_execve(const char *path, char *const argv[], char *const envp[],
 
 pid_t	s_fork(t_data *data)
 {
-	pid_t child;
+	pid_t	child;
 
 	child = fork();
 	if (child == -1)

@@ -18,7 +18,7 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
 all : $(NAME)
 
 $(NAME) : $(OBJS) $(HEADER)
-	make -C libft
+	make bonus -C libft
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L libft -lft 
 
 %.o : %.c

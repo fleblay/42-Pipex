@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 15:31:10 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/01/28 17:00:42 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/01/31 11:02:37 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,8 @@ void	custom_exit(t_data *data, int error, char *error_type)
 	free_path(data);
 	free_pipes(data);
 	free(data->child);
-	exit(0);
+	if (error)
+		exit(1);
+	else
+		exit(0);
 }

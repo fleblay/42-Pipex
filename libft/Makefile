@@ -32,7 +32,8 @@ ft_strtrim.c\
 ft_substr.c\
 ft_tolower.c\
 ft_toupper.c\
-ft_strjoin2.c
+ft_strjoin2.c\
+ft_strcmp.c
 
 BONUS_SRCS = ft_lstnew.c\
 ft_lstadd_front.c\
@@ -42,7 +43,8 @@ ft_lstadd_back.c\
 ft_lstdelone.c\
 ft_lstclear.c\
 ft_lstiter.c\
-ft_lstmap.c
+ft_lstmap.c\
+get_next_line.c
 
 HEADER = libft.h
 OBJS = ${SRCS:.c=.o}
@@ -50,16 +52,19 @@ BONUS_OBJS = ${BONUS_SRCS:.c=.o}
 NAME = libft.a
 
 CC = gcc
-#CFLAGS= -Wall -Wextra -Werror
-CFLAGS= -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS= -Wall -Wextra -Werror
+
+ifeq (${MAKECMDGOALS}, bonus)
+SRCS += ${BONUS_SRCS}
+OBJS = ${SRCS:.c=.o}
+endif
 
 all : ${NAME}
 
+bonus : ${NAME}
+
 ${NAME} : ${OBJS} ${HEADER}
 	ar -rc ${NAME} ${OBJS}
-
-bonus : ${NAME} ${BONUS_OBJS}
-	ar -rc ${NAME} ${BONUS_OBJS}
 
 %.o : %.c
 	${CC} ${CFLAGS} -c $< 
