@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 16:09:57 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/01/31 19:05:03 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/01 10:45:05 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	treat_child(int i, t_data *data)
 {
 	if (i == 0 && !data->hd)
 	{
-		data->fd1 = s_open(data->cmds[1][0], O_RDONLY, 0, data);
+		data->fd1 = s_open(data->av[1], O_RDONLY, 0, data);
 		s_dup2(data->fd1, 0, data);
 		s_close(data->fd1, data);
 	}
@@ -59,7 +59,9 @@ static void	treat_child(int i, t_data *data)
 	s_close(data->pipefd[i][0], data);
 	s_dup2(data->pipefd[i][1], 1, data);
 	s_close(data->pipefd[i][1], data);
-	// To fix
+	try_cmd(i + 2, data);
+	if (data->cmds_type[i + 2] == -1)
+		custom_exit_cmd(data, 1, "pipex: command not found: ", data->av[i + 2]);
 	if (access(data->cmds[i + 2][0], F_OK) == -1)
 		custom_exit(data, 2, "acess fail");
 	s_execve(data->cmds[i + 2][0], data->cmds[i + 2], data->env, data);
@@ -68,13 +70,18 @@ static void	treat_child(int i, t_data *data)
 static void	treat_last(int i, t_data *data)
 {
 	if (data->hd)
-		data->fd2 = s_open(data->cmds[i + 3][0],
+		data->fd2 = s_open(data->av[i + 3],
 				O_CREAT | O_WRONLY | O_APPEND, S_IRWXU, data);
 	else
-		data->fd2 = s_open(data->cmds[i + 3][0],
+		data->fd2 = s_open(data->av[i + 3],
 				O_CREAT | O_WRONLY, S_IRWXU, data);
 	s_dup2(data->fd2, 1, data);
 	s_close(data->fd2, data);
+	try_cmd(i + 2, data);
+	if (data->cmds_type[i + 2] == -1)
+		custom_exit_cmd(data, 1, "pipex: command not found: ", data->av[i + 2]);
+	if (access(data->cmds[i + 2][0], F_OK) == -1)
+		custom_exit(data, 2, "acess fail");
 	exit(execve(data->cmds[i + 2][0], data->cmds[i + 2], NULL));
 }
 

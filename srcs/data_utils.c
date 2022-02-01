@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 15:31:10 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/01/31 19:03:06 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/01 10:40:46 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	init_data(t_data *data)
 	if (data->av[1])
 		data->hd = !ft_strcmp(data->av[1], "here_doc");
 	get_path(data);
-	get_status(data);
+//	get_status(data);
 	data->pipefd = (int **)malloc((data->ac - 4) * sizeof(int *));
 	if (!data->pipefd)
 		custom_exit(data, 1, "malloc fail");
@@ -37,8 +37,29 @@ void	init_data(t_data *data)
 	data->child = (pid_t *)malloc((data->ac - 4) * sizeof(pid_t));
 	if (!data->child)
 		custom_exit(data, 1, "malloc fail");
-	print_cmds(data);
-	print_types(data);
+//	print_cmds(data);
+//	print_types(data);
+}
+
+void	custom_exit_cmd(t_data *data, int error, char *error_type, char *cmd)
+{
+	if (error)
+	{
+		ft_putstr_fd(error_type, 2);
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd("\n", 2);
+	}
+	if (error == 2)
+		perror("pipex");
+	free(data->cmds_type);
+	free_cmds(data);
+	free_path(data);
+	free_pipes(data);
+	free(data->child);
+	if (error)
+		exit(1);
+	else
+		exit(0);
 }
 
 void	custom_exit(t_data *data, int error, char *error_type)
@@ -50,7 +71,7 @@ void	custom_exit(t_data *data, int error, char *error_type)
 		ft_putstr_fd("\n", 2);
 	}
 	if (error == 2)
-		perror("Perror info");
+		perror("pipex");
 	free(data->cmds_type);
 	free_cmds(data);
 	free_path(data);
