@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 10:48:28 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/01 10:55:00 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/01 13:08:57 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,15 @@ void	try_cmd(int i, t_data *data)
 		else
 			free(try);
 	}
+	//exit avec l'erreur au lieu de le faire dans le fork principal
 }
 
 int	get_file_status(char *try, t_data *data, int i, int swap)
 {
+	//pour checker uniquement si le nom de la commande est issue d'un chemin et non
+	// juste "toto" par exemple (au lieu de ./toto)
+	if (!ft_strchr(try, '/'))
+		return (-1);
 	if (!access(try, F_OK))
 		data->cmds_type[i] = 0;
 	if (!access(try, R_OK))

@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 15:31:10 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/01 10:40:46 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/01 12:24:07 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include "libft.h"
 #include <unistd.h>
 #include <stdio.h>
+#include <string.h>
+#include <errno.h>
 
 //	print_cmds(data);
 //	print_types(data);
@@ -41,16 +43,14 @@ void	init_data(t_data *data)
 //	print_types(data);
 }
 
-void	custom_exit_cmd(t_data *data, int error, char *error_type, char *cmd)
+void	custom_exit_cmd(t_data *data, int error, char *error_sentence, char *cmd)
 {
 	if (error)
 	{
-		ft_putstr_fd(error_type, 2);
+		ft_putstr_fd(error_sentence, 2);
 		ft_putstr_fd(cmd, 2);
 		ft_putstr_fd("\n", 2);
 	}
-	if (error == 2)
-		perror("pipex");
 	free(data->cmds_type);
 	free_cmds(data);
 	free_path(data);
@@ -66,12 +66,14 @@ void	custom_exit(t_data *data, int error, char *error_type)
 {
 	if (error)
 	{
-		ft_putstr_fd("Error : ", 2);
-		ft_putstr_fd(error_type, 2);
+		ft_putstr_fd("pipex : ", 2);
+		ft_putstr_fd(strerror(errno), 2);
+		ft_putstr_fd(": ", 2);
+		//enlever les 2 lignes suivantes pour comportement idem a zsh
+		if (error_type)
+			ft_putstr_fd(error_type, 2);
 		ft_putstr_fd("\n", 2);
 	}
-	if (error == 2)
-		perror("pipex");
 	free(data->cmds_type);
 	free_cmds(data);
 	free_path(data);

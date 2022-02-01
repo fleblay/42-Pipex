@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 16:09:57 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/01 10:45:05 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/01 13:07:22 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	treat_child(int i, t_data *data)
 	if (data->cmds_type[i + 2] == -1)
 		custom_exit_cmd(data, 1, "pipex: command not found: ", data->av[i + 2]);
 	if (access(data->cmds[i + 2][0], F_OK) == -1)
-		custom_exit(data, 2, "acess fail");
+		custom_exit(data, 1, "acess fail");
 	s_execve(data->cmds[i + 2][0], data->cmds[i + 2], data->env, data);
 }
 
@@ -81,7 +81,7 @@ static void	treat_last(int i, t_data *data)
 	if (data->cmds_type[i + 2] == -1)
 		custom_exit_cmd(data, 1, "pipex: command not found: ", data->av[i + 2]);
 	if (access(data->cmds[i + 2][0], F_OK) == -1)
-		custom_exit(data, 2, "acess fail");
+		custom_exit(data, 1, "acess fail");
 	exit(execve(data->cmds[i + 2][0], data->cmds[i + 2], NULL));
 }
 
