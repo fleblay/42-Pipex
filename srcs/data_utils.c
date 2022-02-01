@@ -6,15 +6,13 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 15:31:10 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/01 14:59:35 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/01 16:25:34 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include <stdlib.h>
 #include "libft.h"
-#include <unistd.h>
-#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <errno.h>
 
@@ -50,27 +48,6 @@ void	error_cmd(t_data *data, char *err_stce, char *cmd, int exit_stat)
 	exit(exit_stat);
 }
 
-/*
-void	custom_exit_cmd(t_data *data, int error, char *error_sentence, char *cmd)
-{
-	if (error)
-	{
-		ft_putstr_fd(error_sentence, 2);
-		ft_putstr_fd(cmd, 2);
-		ft_putstr_fd("\n", 2);
-	}
-	free(data->cmds_type);
-	free_cmds(data);
-	free_path(data);
-	free_pipes(data);
-	free(data->child);
-	if (error)
-		exit(1);
-	else
-		exit(0);
-}
-*/
-
 void	custom_exit(t_data *data, int error, char *error_type)
 {
 	if (error)
@@ -78,7 +55,6 @@ void	custom_exit(t_data *data, int error, char *error_type)
 		ft_putstr_fd("pipex : ", 2);
 		ft_putstr_fd(strerror(errno), 2);
 		ft_putstr_fd(": ", 2);
-		//enlever les 2 lignes suivantes pour comportement idem a zsh
 		if (error_type)
 			ft_putstr_fd(error_type, 2);
 		ft_putstr_fd("\n", 2);

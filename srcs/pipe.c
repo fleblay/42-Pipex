@@ -6,14 +6,13 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 14:45:27 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/01/28 12:24:21 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/01 16:27:58 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <unistd.h>
 
 static void	free_partial_tab_pipes(t_data *data, int i)
 {

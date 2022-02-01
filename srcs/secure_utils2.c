@@ -6,13 +6,12 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 10:29:56 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/01 12:03:32 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/01 16:21:46 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include <sys/wait.h>
-#include <unistd.h>
 
 void	s_wait(int *stat_loc, t_data *data)
 {

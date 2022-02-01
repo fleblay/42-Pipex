@@ -6,15 +6,13 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 10:14:19 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/01 12:06:21 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/01 16:23:04 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include <stdlib.h>
+#include <unistd.h>
 #include <fcntl.h>
-#include <sys/stat.h>
-#include <sys/types.h>
 
 void	s_dup2(int oldfd, int newfd, t_data *data)
 {

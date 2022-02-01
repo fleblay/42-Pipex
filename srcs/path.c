@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 16:41:07 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/01/31 17:06:13 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/01 16:27:29 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "libft.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <unistd.h>
 
 void	get_path(t_data *data)
 {
