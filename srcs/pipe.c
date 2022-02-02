@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 14:45:27 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/02 10:20:13 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/02 10:36:19 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,23 +67,9 @@ void	free_pipes(t_data *data)
 	free(data->pipefd);
 }
 
-void	print_pipes(t_data *data)
-{
-	int i;
-
-	i = 0;
-	while (i < data->ac - 4)
-	{
-		fprintf(stderr, "data->pipefd[%d]: Read : %d->%d - Write : %d->%d\n", \
-		i, data->pipefd[i][0], fcntl(data->pipefd[i][0], F_GETFD),\
-		data->pipefd[i][1], fcntl(data->pipefd[i][1], F_GETFD));
-		i++;
-	}
-}
-
 void	kill_pipes(int start, t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->ac - 4)
@@ -93,6 +79,24 @@ void	kill_pipes(int start, t_data *data)
 			s_close(data->pipefd[i][0], data);
 			s_close(data->pipefd[i][1], data);
 		}
+		i++;
+	}
+}
+
+/*
+For debug
+*/
+
+void	print_pipes(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->ac - 4)
+	{
+		fprintf(stderr, "data->pipefd[%d]: Read : %d->%d - Write : %d->%d\n", \
+		i, data->pipefd[i][0], fcntl(data->pipefd[i][0], F_GETFD), \
+		data->pipefd[i][1], fcntl(data->pipefd[i][1], F_GETFD));
 		i++;
 	}
 }

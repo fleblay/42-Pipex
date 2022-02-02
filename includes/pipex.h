@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 12:42:27 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/02 10:05:39 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/02 10:43:42 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	print_path(t_data *data);
 void	free_path(t_data *data);
 void	set_types(t_data *data);
 void	print_types(t_data *data);
-int		get_file_status(char *try, t_data *data, int i, int swap);
 void	get_status(t_data *data);
 void	try_cmd(int i, t_data *data);
 void	init_data(t_data *data);

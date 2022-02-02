@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 10:11:21 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/01/31 17:05:57 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/02 10:39:55 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,26 +57,6 @@ void	get_cmds(t_data *data)
 	data->cmds[i] = NULL;
 }
 
-void	print_cmds(t_data *data)
-{
-	int	i;
-	int	j;
-
-	if (!data->cmds)
-		return ;
-	i = 0;
-	while (data->cmds[i])
-	{
-		j = 0;
-		while (data->cmds[i][j])
-		{
-			printf("cmds[%d][%d] : >%s<\n", i, j, data->cmds[i][j]);
-			j++;
-		}
-		i++;
-	}
-}
-
 void	free_cmds(t_data *data)
 {
 	int	i;
@@ -97,4 +77,28 @@ void	free_cmds(t_data *data)
 		i++;
 	}
 	free(data->cmds);
+}
+
+/*
+For debug
+*/
+
+void	print_cmds(t_data *data)
+{
+	int	i;
+	int	j;
+
+	if (!data->cmds)
+		return ;
+	i = 0;
+	while (data->cmds[i])
+	{
+		j = 0;
+		while (data->cmds[i][j])
+		{
+			printf("cmds[%d][%d] : >%s<\n", i, j, data->cmds[i][j]);
+			j++;
+		}
+		i++;
+	}
 }

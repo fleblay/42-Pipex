@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 16:41:07 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/01 16:27:29 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/02 10:35:39 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,6 @@ void	get_path(t_data *data)
 		custom_exit(data, 1, "split fail");
 }
 
-void	print_path(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (data->path[i])
-	{
-		printf("path[%d] : >%s<\n", i, data->path[i]);
-		i++;
-	}
-}
-
 void	free_path(t_data *data)
 {
 	int	i;
@@ -59,4 +47,20 @@ void	free_path(t_data *data)
 		i++;
 	}
 	free(data->path);
+}
+
+/*
+For debug
+*/
+
+void	print_path(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->path[i])
+	{
+		printf("path[%d] : >%s<\n", i, data->path[i]);
+		i++;
+	}
 }

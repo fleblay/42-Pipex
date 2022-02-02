@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 10:48:28 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/01 16:24:15 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/02 10:43:21 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,24 @@ void	set_types(t_data *data)
 	}
 }
 
-void	print_types(t_data *data)
+static int	get_file_status(char *try, t_data *data, int i, int swap)
 {
-	int	i;
-
-	if (!data->cmds_type)
-		return ;
-	i = 0;
-	while (i < data->ac)
+	if (!ft_strchr(try, '/'))
+		return (-1);
+	if (!access(try, F_OK))
+		data->cmds_type[i] = 0;
+	if (!access(try, R_OK))
+		data->cmds_type[i] += 4;
+	if (!access(try, W_OK))
+		data->cmds_type[i] += 2;
+	if (!access(try, X_OK))
+		data->cmds_type[i] += 1;
+	if (data->cmds_type[i] >= 0 && swap)
 	{
-		printf("cmds_type[%d] : >%d<\n", i, data->cmds_type[i]);
-		i++;
+		free(data->cmds[i][0]);
+		data->cmds[i][0] = try;
 	}
+	return (data->cmds_type[i]);
 }
 
 void	try_cmd(int i, t_data *data)
@@ -63,24 +69,26 @@ void	try_cmd(int i, t_data *data)
 		else
 			free(try);
 	}
+	if (data->cmds_type[i] == -1)
+		error_cmd(data, "pipex: command not found: ", data->av[i], 127);
+	if (access(data->cmds[i][0], X_OK) == -1)
+		error_cmd(data, "pipex: permission denied: ", data->av[i], 126);
 }
 
-int	get_file_status(char *try, t_data *data, int i, int swap)
+/*
+For debug
+*/
+
+void	print_types(t_data *data)
 {
-	if (!ft_strchr(try, '/'))
-		return (-1);
-	if (!access(try, F_OK))
-		data->cmds_type[i] = 0;
-	if (!access(try, R_OK))
-		data->cmds_type[i] += 4;
-	if (!access(try, W_OK))
-		data->cmds_type[i] += 2;
-	if (!access(try, X_OK))
-		data->cmds_type[i] += 1;
-	if (data->cmds_type[i] >= 0 && swap)
+	int	i;
+
+	if (!data->cmds_type)
+		return ;
+	i = 0;
+	while (i < data->ac)
 	{
-		free(data->cmds[i][0]);
-		data->cmds[i][0] = try;
+		printf("cmds_type[%d] : >%d<\n", i, data->cmds_type[i]);
+		i++;
 	}
-	return (data->cmds_type[i]);
 }
