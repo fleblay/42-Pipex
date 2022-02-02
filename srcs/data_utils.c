@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 15:31:10 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/02 10:12:47 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/02 18:55:54 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <stdio.h>
 
 void	init_data(t_data *data)
 {
@@ -30,7 +31,7 @@ void	init_data(t_data *data)
 	if (!data->pipefd)
 		custom_exit(data, 1, "malloc fail");
 	create_pipes(data);
-	data->child = (pid_t *)malloc((data->ac - 4) * sizeof(pid_t));
+	data->child = (pid_t *)malloc((data->ac - 3) * sizeof(pid_t));
 	if (!data->child)
 		custom_exit(data, 1, "malloc fail");
 }
@@ -67,5 +68,5 @@ void	custom_exit(t_data *data, int error, char *error_type)
 	if (error)
 		exit(1);
 	else
-		exit(0);
+		exit(data->status);
 }

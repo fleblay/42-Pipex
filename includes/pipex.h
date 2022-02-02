@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 12:42:27 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/02 10:43:42 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/02 15:17:33 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_data {
 	int		fd1;
 	int		fd2;
 	int		hd;
+	int		status;
 }			t_data;
 
 void	get_cmds(t_data *data);

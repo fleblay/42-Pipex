@@ -1,5 +1,5 @@
 SRC_DIR = srcs/
-SRC_LST = pipex.c parsing.c path.c types.c data_utils.c pipe.c fork.c \
+SRC_LST = pipex.c parsing.c path.c types.c data_utils.c pipe.c fork2.c \
 		secure_utils.c secure_utils2.c
 SRCS = $(addprefix $(SRC_DIR), $(SRC_LST))
 
@@ -12,8 +12,8 @@ OBJS = $(SRCS:.c=.o)
 NAME = pipex
 
 CC = cc 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
-#CFLAGS = -Wall -Wextra -Werror
+#CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror
 
 all : $(NAME)
 
