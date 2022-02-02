@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 12:42:27 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/01 14:59:49 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/02 10:05:39 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	custom_exit(t_data *data, int error, char *error_type);
 void	error_cmd(t_data *data, char *err_stce, char *cmd, int exit_stat);
 void	create_pipes(t_data *data);
 void	free_pipes(t_data *data);
+void	print_pipes(t_data *data);
+void	kill_pipes(int start, t_data *data);
 void	make_fork(t_data *data);
 void	s_dup2(int oldfd, int newfd, t_data *data);
 void	s_close(int fd, t_data *data);

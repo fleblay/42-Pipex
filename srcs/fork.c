@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 16:09:57 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/01 19:24:24 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/02 10:20:47 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <stdio.h>
 
 static void	treat_here_doc(t_data *data)
 {
@@ -50,7 +51,7 @@ static void	treat_child(int i, t_data *data)
 		s_dup2(data->fd1, 0, data);
 		s_close(data->fd1, data);
 	}
-	if (i == 0 && data->hd)
+	else if (i == 0 && data->hd)
 	{
 		treat_here_doc(data);
 		i++;
@@ -58,17 +59,14 @@ static void	treat_child(int i, t_data *data)
 	s_close(data->pipefd[i][0], data);
 	s_dup2(data->pipefd[i][1], 1, data);
 	s_close(data->pipefd[i][1], data);
-
-	/*
-	ft_putstr_fd("ici", 2);
-	ft_putnbr_fd(i, 2);
-	*/
-
 	try_cmd(i + 2, data);
 	if (data->cmds_type[i + 2] == -1)
 		error_cmd(data, "pipex: command not found: ", data->av[i + 2], 127);
 	if (access(data->cmds[i + 2][0], X_OK) == -1)
 		error_cmd(data, "pipex: permission denied: ", data->av[i + 2], 126);
+	kill_pipes(i, data);
+	//fprintf(stderr, "\x1b[032mjust before execve in child %d\n\x1b[0m", i);
+	//print_pipes(data);
 	exit(execve(data->cmds[i + 2][0], data->cmds[i + 2], data->env));
 }
 
@@ -87,18 +85,16 @@ static void	treat_last(int i, t_data *data)
 		error_cmd(data, "pipex: command not found: ", data->av[i + 2], 127);
 	if (access(data->cmds[i + 2][0], X_OK) == -1)
 		error_cmd(data, "pipex: permission denied: ", data->av[i + 2], 126);
+	//fprintf(stderr, "\x1b[031mjust before execve in last cmd %d\n\x1b[0m", i);
+	//print_pipes(data);
 	exit(execve(data->cmds[i + 2][0], data->cmds[i + 2], data->env));
 }
 
 //on enleve le wait avant le i++ pour ne plus timeout sur /dev/urandom | head -1
-
-
 void	make_fork(t_data *data)
 {
 	int	i;
-	int	res_wait;
 
-	(void)res_wait;
 	i = 0;
 	while (i < data->ac - 4)
 	{
@@ -110,6 +106,8 @@ void	make_fork(t_data *data)
 			s_close(data->pipefd[i][1], data);
 			s_dup2(data->pipefd[i][0], 0, data);
 			s_close(data->pipefd[i][0], data);
+			//fprintf(stderr, "\x1b[033mjust before end of loop %d\n\x1b[0m", i);
+			//print_pipes(data);
 			i++;
 		}
 	}

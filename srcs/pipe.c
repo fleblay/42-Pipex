@@ -6,13 +6,15 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 14:45:27 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/01 16:27:58 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/02 10:20:13 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 static void	free_partial_tab_pipes(t_data *data, int i)
 {
@@ -63,4 +65,34 @@ void	free_pipes(t_data *data)
 		i++;
 	}
 	free(data->pipefd);
+}
+
+void	print_pipes(t_data *data)
+{
+	int i;
+
+	i = 0;
+	while (i < data->ac - 4)
+	{
+		fprintf(stderr, "data->pipefd[%d]: Read : %d->%d - Write : %d->%d\n", \
+		i, data->pipefd[i][0], fcntl(data->pipefd[i][0], F_GETFD),\
+		data->pipefd[i][1], fcntl(data->pipefd[i][1], F_GETFD));
+		i++;
+	}
+}
+
+void	kill_pipes(int start, t_data *data)
+{
+	int i;
+
+	i = 0;
+	while (i < data->ac - 4)
+	{
+		if (i > start)
+		{
+			s_close(data->pipefd[i][0], data);
+			s_close(data->pipefd[i][1], data);
+		}
+		i++;
+	}
 }
