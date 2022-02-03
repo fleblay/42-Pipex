@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 10:14:19 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/01 16:23:04 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/03 15:19:19 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	s_execve(const char *path, char *const argv[], char *const envp[],
 		t_data *data)
 {
 	if (execve(path, argv, envp) == -1)
-		custom_exit(data, 1, "execve fail");
+		custom_exit(data, 0, "execve fail");
 }
 
 pid_t	s_fork(t_data *data)

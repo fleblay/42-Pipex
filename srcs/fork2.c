@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 19:07:54 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/03 14:35:29 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/03 15:20:12 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	treat_child(int i, t_data *data)
 	else if (i == data->ac - 4)
 		treat_last(i, data);
 	try_cmd(i + 2, data);
-	exit(execve(data->cmds[i + 2][0], data->cmds[i + 2], data->env));
+	s_execve(data->cmds[i + 2][0], data->cmds[i + 2], data->env, data);
 }
 
 void	make_fork(t_data *data, int i)
