@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 19:07:54 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/03 15:20:12 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/03 17:56:18 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ static void	treat_last(int i, t_data *data)
 {
 	if (data->hd)
 		data->fd2 = s_open(data->av[i + 3],
-				O_CREAT | O_WRONLY | O_APPEND, S_IRWXU, data);
+				O_CREAT | O_WRONLY | O_APPEND, 0644, data);
 	else
 		data->fd2 = s_open(data->av[i + 3],
-				O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU, data);
+				O_CREAT | O_WRONLY | O_TRUNC, 0644, data);
 	s_dup2(data->fd2, 1, data);
 	s_close(data->fd2, data);
 }
