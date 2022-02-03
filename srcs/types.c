@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 10:48:28 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/03 13:11:23 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/03 14:09:56 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static void	find_cmd(int i, t_data *data)
 	while (data->path && data->path[++j])
 	{
 		try = ft_strjoin2(data->path[j], "/", data->cmds[i][0]);
-		fprintf(stderr, "try : >%s<\n", try);
 		if (!try)
 			custom_exit(data, 1, "strjoin2 fail");
 		if (get_file_status(try, data, i, 1) >= 0)

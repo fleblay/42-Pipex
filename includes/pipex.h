@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 12:42:27 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/02 15:17:33 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/03 14:35:22 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	create_pipes(t_data *data);
 void	free_pipes(t_data *data);
 void	print_pipes(t_data *data);
 void	kill_pipes(int start, t_data *data);
-void	make_fork(t_data *data);
+void	make_fork(t_data *data, int i);
 void	s_dup2(int oldfd, int newfd, t_data *data);
 void	s_close(int fd, t_data *data);
 int		s_open(const char *pathname, int flags, mode_t mode, t_data *data);

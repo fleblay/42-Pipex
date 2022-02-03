@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 19:07:54 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/03 10:01:56 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/03 14:35:29 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	treat_here_doc(t_data *data)
 
 	lenlimiter = ft_strlen(data->av[2]);
 	data->fd1 = s_open("./.heredoc_tmp", O_CREAT | O_RDWR, S_IRWXU, data);
+	ft_putstr_fd("heredoc>", 1);
 	ret = get_next_line(0);
 	while (ret)
 	{
@@ -32,6 +33,7 @@ static void	treat_here_doc(t_data *data)
 			break ;
 		write(data->fd1, ret, ft_strlen(ret));
 		free(ret);
+		ft_putstr_fd("heredoc>", 1);
 		ret = get_next_line(0);
 	}
 	free(ret);
@@ -80,11 +82,8 @@ static void	treat_child(int i, t_data *data)
 	exit(execve(data->cmds[i + 2][0], data->cmds[i + 2], data->env));
 }
 
-void	make_fork(t_data *data)
+void	make_fork(t_data *data, int i)
 {
-	int	i;
-
-	i = 0;
 	while (i < data->ac - 3)
 	{
 		data->child[i] = s_fork(data);
@@ -92,6 +91,8 @@ void	make_fork(t_data *data)
 			treat_child(i, data);
 		else if (i < data->ac - 4)
 		{
+			if (data->hd && i++ == 0)
+				wait(&data->status);
 			s_close(data->pipefd[i][1], data);
 			s_dup2(data->pipefd[i][0], 0, data);
 			s_close(data->pipefd[i][0], data);
