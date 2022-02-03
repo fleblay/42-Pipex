@@ -33,7 +33,8 @@ ft_substr.c\
 ft_tolower.c\
 ft_toupper.c\
 ft_strjoin2.c\
-ft_strcmp.c
+ft_strcmp.c\
+ft_strstr.c
 
 BONUS_SRCS = ft_lstnew.c\
 ft_lstadd_front.c\
@@ -52,8 +53,8 @@ BONUS_OBJS = ${BONUS_SRCS:.c=.o}
 NAME = libft.a
 
 CC = gcc
-#CFLAGS= -Wall -Wextra -Werror
-CFLAGS= -Wall -Wextra -Werror -fsanitize=address -g3
+#CFLAGS= -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS= -Wall -Wextra -Werror
 
 ifeq (${MAKECMDGOALS}, bonus)
 SRCS += ${BONUS_SRCS}

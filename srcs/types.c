@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 10:48:28 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/03 11:39:27 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/03 13:11:23 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ static void	find_cmd(int i, t_data *data)
 		error_cmd(data, "pipex: permission denied: ", data->av[i], 126);
 	if (!data->cmds[i][0])
 		return ;
+	if (get_file_status(data->cmds[i][0], data, i, 0) >= 0)
+		return ;
 	if (!ft_strncmp("./", data->cmds[i][0], 2)
 		&& get_file_status(data->cmds[i][0], data, i, 0) >= 0)
 		return ;
@@ -63,6 +65,7 @@ static void	find_cmd(int i, t_data *data)
 	while (data->path && data->path[++j])
 	{
 		try = ft_strjoin2(data->path[j], "/", data->cmds[i][0]);
+		fprintf(stderr, "try : >%s<\n", try);
 		if (!try)
 			custom_exit(data, 1, "strjoin2 fail");
 		if (get_file_status(try, data, i, 1) >= 0)
@@ -75,6 +78,9 @@ static void	find_cmd(int i, t_data *data)
 void	try_cmd(int i, t_data *data)
 {
 	find_cmd(i, data);
+	if (data->cmds[i][0] && (ft_strstr(data->cmds[i][0], "//")
+		|| data->cmds[i][0][ft_strlen(data->cmds[i][0]) - 1] == '/'))
+		error_cmd(data, "pipex: no such file or directory: ", data->av[i], 127);
 	if (data->cmds_type[i] == -1)
 		error_cmd(data, "pipex: command not found: ", data->av[i], 127);
 	if (access(data->cmds[i][0], X_OK) == -1)

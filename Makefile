@@ -12,8 +12,8 @@ OBJS = $(SRCS:.c=.o)
 NAME = pipex
 
 CC = cc 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
-#CFLAGS = -Wall -Wextra -Werror
+#CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror
 
 all : $(NAME)
 
