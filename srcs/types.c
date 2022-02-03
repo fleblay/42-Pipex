@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 10:48:28 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/02 10:43:21 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/03 11:39:27 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	get_file_status(char *try, t_data *data, int i, int swap)
 	return (data->cmds_type[i]);
 }
 
-void	try_cmd(int i, t_data *data)
+static void	find_cmd(int i, t_data *data)
 {
 	int		j;
 	char	*try;
@@ -56,7 +56,8 @@ void	try_cmd(int i, t_data *data)
 		error_cmd(data, "pipex: permission denied: ", data->av[i], 126);
 	if (!data->cmds[i][0])
 		return ;
-	if (get_file_status(data->cmds[i][0], data, i, 0) >= 0)
+	if (!ft_strncmp("./", data->cmds[i][0], 2)
+		&& get_file_status(data->cmds[i][0], data, i, 0) >= 0)
 		return ;
 	j = -1;
 	while (data->path && data->path[++j])
@@ -69,6 +70,11 @@ void	try_cmd(int i, t_data *data)
 		else
 			free(try);
 	}
+}
+
+void	try_cmd(int i, t_data *data)
+{
+	find_cmd(i, data);
 	if (data->cmds_type[i] == -1)
 		error_cmd(data, "pipex: command not found: ", data->av[i], 127);
 	if (access(data->cmds[i][0], X_OK) == -1)
