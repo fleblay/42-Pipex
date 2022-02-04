@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   secure_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/19 12:43:11 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/03 14:35:08 by fle-blay         ###   ########.fr       */
+/*   Created: 2022/01/31 10:29:56 by fle-blay          #+#    #+#             */
+/*   Updated: 2022/02/01 16:21:46 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include "libft.h"
-#include <stddef.h>
+#include <sys/wait.h>
 
-int	main(int ac, char *av[], char *env[])
+void	s_wait(int *stat_loc, t_data *data)
 {
-	t_data	data;
+	if (wait(stat_loc) == -1)
+		custom_exit(data, 1, "wait fail");
+}
 
-	data = (t_data){.ac = ac, .av = av, .env = env};
-	if (ac < 5 || (!ft_strcmp(av[1], "here_doc") && ac < 6))
-		return (1);
-	init_data(&data);
-	make_fork(&data, 0);
-	custom_exit(&data, 0, NULL);
-	return (0);
+void	s_unlink(const char *path, t_data *data)
+{
+	if (unlink(path) == -1)
+		custom_exit(data, 1, "unlink fail");
 }
