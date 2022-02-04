@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 12:42:27 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/04 11:31:28 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/04 12:45:44 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ void	s_execve(const char *path, char *const argv[], char *const envp[],
 pid_t	s_fork(t_data *data);
 void	s_wait(int *stat_loc, t_data *data);
 void	s_unlink(const char *path, t_data *data);
+void	treat_here_doc(t_data *data);
 
 #endif

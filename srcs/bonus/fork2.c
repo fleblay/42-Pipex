@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 19:07:54 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/04 12:32:02 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/04 12:46:40 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-static void	treat_here_doc(t_data *data)
+void	treat_here_doc(t_data *data)
 {
 	char	*ret;
 	int		lenlimiter;
