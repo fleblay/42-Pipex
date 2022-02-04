@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 15:31:10 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/04 09:45:18 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/04 12:41:11 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ void	init_data(t_data *data)
 		custom_exit(data, 1, "malloc fail");
 	set_types(data);
 	get_cmds(data);
-	if (data->av[1])
-		data->hd = (!ft_strcmp(data->av[1], "here_doc") && data->ac > 5);
 	get_path(data);
 	data->pipefd = (int **)malloc((data->ac - 4) * sizeof(int *));
 	if (!data->pipefd)
