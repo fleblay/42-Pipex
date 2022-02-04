@@ -6,7 +6,7 @@
 /*   By: fle-blay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 19:07:54 by fle-blay          #+#    #+#             */
-/*   Updated: 2022/02/03 17:56:18 by fle-blay         ###   ########.fr       */
+/*   Updated: 2022/02/04 12:32:02 by fle-blay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,11 @@ static void	treat_last(int i, t_data *data)
 
 static void	treat_child(int i, t_data *data)
 {
-	if (i == 0 && !data->hd)
+	if (i == 0)
 	{
 		data->fd1 = s_open(data->av[1], O_RDONLY, 0, data);
 		s_dup2(data->fd1, 0, data);
 		s_close(data->fd1, data);
-	}
-	else if (i == 0 && data->hd)
-	{
-		treat_here_doc(data);
-		i++;
 	}
 	if (i < data->ac - 4)
 	{
@@ -91,8 +86,6 @@ void	make_fork(t_data *data, int i)
 			treat_child(i, data);
 		else if (i < data->ac - 4)
 		{
-			if (data->hd && i++ == 0)
-				wait(&data->status);
 			s_close(data->pipefd[i][1], data);
 			s_dup2(data->pipefd[i][0], 0, data);
 			s_close(data->pipefd[i][0], data);
